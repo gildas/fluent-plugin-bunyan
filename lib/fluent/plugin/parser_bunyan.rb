@@ -45,6 +45,10 @@ module Fluent
         return "debug" if level >= 20
         return "trace"
       end
+
+      def version
+        return "0.0.1"
+      end
     end
   end
 end
