@@ -4,6 +4,11 @@
 
 The plugin requires [Fluentd](https://fluentd.org/) 1.0 at least.
 
+|  |   |
+---|---|
+master | [![Build Status](https://dev.azure.com/keltiek/gildas/_apis/build/status/gildas.fluent-plugin-bunyan?branchName=master)](https://dev.azure.com/keltiek/gildas/_build/latest?definitionId=4&branchName=master)
+dev | [![Build Status](https://dev.azure.com/keltiek/gildas/_apis/build/status/gildas.fluent-plugin-bunyan?branchName=dev)](https://dev.azure.com/keltiek/gildas/_build/latest?definitionId=4&branchName=dev)
+
 ## Installation
 
 Pretty straight forward:  
