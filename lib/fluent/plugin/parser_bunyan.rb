@@ -18,19 +18,36 @@ require "fluent/plugin/parser"
 
 module Fluent
   module Plugin
-    #class BunyanParser < JSONParser
-    class BunyanParser < Fluent::Plugin::Parser
+    class BunyanParser < JSONParser
       Fluent::Plugin.register_parser("bunyan", self)
 
       def configure(conf)
+        conf["time_format"] = "%iso8601"
         super(conf)
       end
 
       def parse(text)
         super(text) do |time, record|
-          record['new_level'] = 'HELLO'
+          record["severity"] = severity(record["level"] || 0)
+          record["host"]     = record.delete("hostname")
+          record["message"]  = record.delete("msg")
+
+          record.delete("v")
           yield time, record
         end
+      end
+
+      def severity(level)
+        return "fatal" if level >= 60
+        return "error" if level >= 50
+        return "warn"  if level >= 40
+        return "info"  if level >= 30
+        return "debug" if level >= 20
+        return "trace"
+      end
+
+      def version
+        return "0.0.1"
       end
     end
   end
