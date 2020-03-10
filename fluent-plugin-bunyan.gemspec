@@ -7,14 +7,14 @@ Gem::Specification.new do |spec|
   spec.authors = ["Gildas Cherruel"]
   spec.email   = ["gildas@breizh.org"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Fluentd Parser for applications that produce [Bunyan](https://github.com/trentm/node-bunyan) logs.}
+  spec.description   = spec.summary
+  spec.homepage      = "https://github.com/gildas/fluent-plugin-bunyan"
   spec.license       = "MIT"
 
   spec.metadata["homepage_uri"]    = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"]   = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = spec.homepage
+  spec.metadata["changelog_uri"]   = "https://github.com/gildas/fluent-plugin-bunyan/blob/master/CHANGELOG.md"
 
   test_files, files  = `git ls-files -z`.split("\x0").partition do |f|
     f.match(%r{^(test|spec|features)/})
