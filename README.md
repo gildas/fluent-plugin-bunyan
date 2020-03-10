@@ -1,40 +1,36 @@
 # fluent-plugin-bunyan
 
-[Fluentd](https://fluentd.org/) parser plugin to do something.
+[Fluentd](https://fluentd.org/) parser plugin to process logs from applications that write [bunyan](https://github.com/gildas/go-logger/blob/master/trentm/node-bunyan) logs.
 
-TODO: write description for you plugin.
+The plugin requires [Fluentd](https://fluentd.org/) 1.0 at least.
 
 ## Installation
 
-### RubyGems
-
-```
+Pretty straight forward:  
+```console
 $ gem install fluent-plugin-bunyan
-```
-
-### Bundler
-
-Add following line to your Gemfile:
-
-```ruby
-gem "fluent-plugin-bunyan"
-```
-
-And then execute:
-
-```
-$ bundle
 ```
 
 ## Configuration
 
-You can generate configuration template:
+Simply add the parser to the [Fluentd](https://fluentd.org/) configuration file, for example:
 
-```
-$ fluent-plugin-config-format parser bunyan
+```xml
+<source>
+  @type tail # say the logs come from stdout
+  <parse>
+    @type bunyan
+  </parse>
+</source>
 ```
 
-You can copy and paste generated documents here.
+## Testing
+
+To run the unit tests, make sure you have the [Fluentd](https://fluentd.org/) gem installed and run:
+
+```console
+bundle exec rake test
+```
 
 ## Copyright
 
