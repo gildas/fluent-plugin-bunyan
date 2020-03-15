@@ -13,8 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "fluent/plugin/parser"
-#require "fluent/parser"
+require "fluent/parser"
 
 module Fluent
   module Plugin
