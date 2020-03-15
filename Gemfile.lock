@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fluent-plugin-bunyan (0.1.0)
+    fluent-plugin-bunyan (0.0.2)
       fluentd (>= 0.14.10, < 2)
 
 GEM

@@ -13,8 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "fluent/plugin/parser"
-#require "fluent/parser"
+require "fluent/parser"
 
 module Fluent
   module Plugin
@@ -47,7 +46,7 @@ module Fluent
       end
 
       def version
-        return "0.0.2"
+        return "0.0.3"
       end
     end
   end

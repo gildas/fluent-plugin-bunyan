@@ -41,4 +41,4 @@ bundle exec rake test
 
 * Copyright(c) 2020- Gildas Cherruel
 * License
-  * Apache License, Version 2.0
+  * MIT
