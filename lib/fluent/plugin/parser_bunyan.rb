@@ -46,7 +46,7 @@ module Fluent
       end
 
       def version
-        return "0.0.2"
+        return "0.0.3"
       end
     end
   end
