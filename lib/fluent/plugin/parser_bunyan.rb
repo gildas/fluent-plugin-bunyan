@@ -26,13 +26,19 @@ module Fluent
       end
 
       def parse(text)
-        super(text) do |time, record|
-          record["severity"] = severity(record["level"] || 0)
-          record["host"]     = record.delete("hostname")
-          record["message"]  = record.delete("msg")
+        # Example of a log line we want to get stuff from:
+        # 2020-03-16T22:14:05.710251038+09:00 stdout F {"UserAgent":"kube-probe/1.17","hostname":"helloworld-go-helloworld-5649dfd7bd-k8954","level":30,"msg":"request start: GET /","name":"helloworld","pid":1,"remote":"10.1.10.1:60114","reqid":"e4745ed6-82d4-4013-aeda-1d02bef42331","scope":"/","tid":17,"time":"2020-03-16T13:14:05Z","topic":"route","v":0}
+        if text =~ /[^{]*({.*)/
+          super(text.sub(/[^{]*({.*)/, '\1')) do |time, record|
+            if record then
+              record["severity"] = severity(record["level"] || 0)
+              record["host"]     = record.delete("hostname")
+              record["message"]  = record.delete("msg")
 
-          record.delete("v")
-          yield time, record
+              record.delete("v")
+            end
+            yield time, record
+          end
         end
       end
 
