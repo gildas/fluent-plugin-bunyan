@@ -34,7 +34,7 @@ Simply add the parser to the [Fluentd](https://fluentd.org/) configuration file,
 To run the unit tests, make sure you have the [Fluentd](https://fluentd.org/) gem installed and run:
 
 ```console
-bundle exec rake test
+rake test
 ```
 
 ## Copyright

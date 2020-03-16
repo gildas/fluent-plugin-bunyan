@@ -81,6 +81,27 @@ class BunyanParserTest < Test::Unit::TestCase
     end
   end
 
+    test "can parse entry from Kubernetes" do
+      driver = create_driver(CONFIG)
+      text = '2020-03-10T07:08:41.710251038+09:00 stdout F {"hostname":"helloworld-go-helloworld-5649dfd7bd-k8954","level":30,"msg":"The message","name":"helloworld","pid":1,"scope":"main","tid":1,"time":"2020-03-10T07:08:41Z","topic":"main","v":0}'
+      expected_time   = Time.utc(2020, 3, 10, 7, 8, 41).to_i
+      expected_record = {
+        "host"     => "helloworld-go-helloworld-5649dfd7bd-k8954",
+        "name"     => "helloworld",
+        "severity" => "info",
+        "level"    => 30,
+        "message"  => "The message",
+        "topic"    => "main",
+        "scope"    => "main",
+        "pid"      => 1,
+        "tid"      => 1,
+      }
+      driver.instance.parse(text) do |time, record|
+        assert_equal(expected_record, record)
+        assert_equal(expected_time,   time)
+      end
+    end
+
   private
 
   def create_driver(conf = CONFIG)
