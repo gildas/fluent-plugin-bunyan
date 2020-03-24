@@ -26,11 +26,22 @@ module Fluent
       end
 
       def parse(text)
-        # Example of a log line we want to get stuff from:
+        # Example of a log line from containerd we want to get stuff from:
         # 2020-03-16T22:14:05.710251038+09:00 stdout F {"UserAgent":"kube-probe/1.17","hostname":"helloworld-go-helloworld-5649dfd7bd-k8954","level":30,"msg":"request start: GET /","name":"helloworld","pid":1,"remote":"10.1.10.1:60114","reqid":"e4745ed6-82d4-4013-aeda-1d02bef42331","scope":"/","tid":17,"time":"2020-03-16T13:14:05Z","topic":"route","v":0}
+        # Example of a log line from docker for mac we want to get stuff from:
+        # {"log":"{\"UserAgent\":\"HTTPie/2.0.0\",\"hostname\":\"helloworld-859745b47d-5dlbn\",\"level\":30,\"msg\":\"request start: GET /\",\"name\":\"helloworld\",\"pid\":1,\"remote\":\"192.168.65.3:42018\",\"reqid\":\"ba054f49-d97e-4970-89c4-dd3b75270e6a\",\"scope\":\"/\",\"tid\":14,\"time\":\"2020-03-24T08:29:02Z\",\"topic\":\"route\",\"v\":0}\n","stream":"stdout","time":"2020-03-24T08:29:02.3995324Z"}
         if text =~ /[^{]*({.*)/
           super(text.sub(/[^{]*({.*)/, '\1')) do |time, record|
             if record then
+              if record["log"] then # This is a Docker style log message
+                begin
+                  r = JSON.load(record["log"])
+                  r.delete("time")
+                  record.merge!(r)
+                  record.delete("log")
+                rescue JSON::ParserError
+                end
+              end
               record["severity"] = severity(record["level"] || 0)
               record["host"]     = record.delete("hostname")
               record["message"]  = record.delete("msg")
