@@ -37,6 +37,22 @@ To run the unit tests, make sure you have the [Fluentd](https://fluentd.org/) ge
 rake test
 ```
 
+## Development
+
+Run fluentd container:  
+```console
+docker run -d --name fluentd-sandbox \
+  --mount type=bind,source=$(pwd)/lib/fluent/plugin,destination=/fluentd/plugins \
+  --mount type=bind,source=$(pwd)/test/config.d,destination=/fluentd/etc \
+  --publish 3000:3000 \
+  fluent/fluentd
+```
+
+Then send fake log lines, like:
+```console
+curl -X POST http://localhost:3000 -d ''
+```
+
 ## Copyright
 
 * Copyright(c) 2020- Gildas Cherruel
